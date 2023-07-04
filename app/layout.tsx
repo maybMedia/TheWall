@@ -1,6 +1,7 @@
 import './globals.css'
 import Nav from './auth/Nav'
 import { Nunito } from "next/font/google"
+import QueryWrapper from './auth/QueryWrapper'
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`mx-4 md:mx-48 xl:mx-96 ${nunito.variable} bg-gray-200`}>
-        <Nav />
-        {children}
-        </body>
+        <QueryWrapper>
+          <Nav />
+          {children}
+        </QueryWrapper>
+      </body>
     </html>
   )
 }
