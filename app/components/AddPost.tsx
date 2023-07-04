@@ -10,7 +10,9 @@ export default function createPost() {
     // Define state variables using the useState hook
     const [title, setTitle] = useState('')
     const [isDisabled, setIsDisabled] = useState(false)
-    let toastPostID: string
+    
+    
+    const [toastPostID, setToastPostID] = useState<string>('');
 
     //Create a post
     const { mutate } = useMutation(
@@ -18,12 +20,12 @@ export default function createPost() {
         {
             onError: (error) => {
                 if(error instanceof AxiosError) {
-                toast.error(error?.response?.data.message, {})
+                toast.error(error?.response?.data.message, { id: toastPostID })
                 }
                 setIsDisabled(false)
             },
             onSuccess: (data) => {
-                toast.success("The post has been placed on the wall! 🧱🔥", {id: toastPostID})
+                toast.success("The post has been placed on the wall! 🧱🔥", { id: toastPostID })
                 setTitle('')
                 setIsDisabled(false)
             },
@@ -32,6 +34,8 @@ export default function createPost() {
 
     const submitPost = async (e: React.FormEvent) => {
         e.preventDefault()
+        const loadingToastID = toast.loading("Laying the bricks for your post...", { id: toastPostID })
+        setToastPostID(loadingToastID);
         setIsDisabled(true)
         mutate(title)
     }

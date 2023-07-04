@@ -2,7 +2,6 @@ import './globals.css'
 import Nav from './auth/Nav'
 import { Nunito } from "next/font/google"
 import QueryWrapper from './auth/QueryWrapper'
-import { Toaster } from "react-hot-toast"
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -25,7 +24,6 @@ export default function RootLayout({
       <body className={`mx-4 md:mx-48 xl:mx-96 ${nunito.variable} bg-gray-200`}>
         <QueryWrapper>
           <Nav />
-          <Toaster />
           {children}
         </QueryWrapper>
       </body>
