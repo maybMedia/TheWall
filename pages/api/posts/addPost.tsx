@@ -7,6 +7,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+
     if(req.method === "POST") {
         const session = await getServerSession(req, res, authOptions)
         if(!session) 
@@ -30,7 +31,7 @@ export default async function handler(
             const result = await prisma.post.create({
                 data: {
                     title,
-                    userId: prismaUser.id,
+                    userID: prismaUser.id,
                 }
             })
             res.status(200).json(result)

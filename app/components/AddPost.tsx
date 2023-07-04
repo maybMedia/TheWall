@@ -1,25 +1,29 @@
 'use client'
 
 import { useState } from "react"
-import {useMutation, useQueryClient} from '@tanstack/react-query'
-import axios from 'axios'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import axios, { AxiosError } from 'axios'
+import toast from "react-hot-toast"
 
 // Define and export the createPost component
 export default function createPost() {
     // Define state variables using the useState hook
     const [title, setTitle] = useState('')
     const [isDisabled, setIsDisabled] = useState(false)
-
+    let toastPostID: string
 
     //Create a post
     const { mutate } = useMutation(
         async (title: string) => await axios.post('/api/posts/addPost', { title }),
         {
             onError: (error) => {
-                console.log(error)
-                },
+                if(error instanceof AxiosError) {
+                toast.error(error?.response?.data.message, {})
+                }
+                setIsDisabled(false)
+            },
             onSuccess: (data) => {
-                console.log(data)
+                toast.success("The post has been placed on the wall! 🧱🔥", {id: toastPostID})
                 setTitle('')
                 setIsDisabled(false)
             },
