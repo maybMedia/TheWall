@@ -15,3 +15,22 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+.name-gradient {
+  background: linear-gradient(to bottom left in oklab, oklch(55% .45 350) 0%, oklch(100% .4 95) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    background-size: 300% auto;
+    animation: textShine 2s ease-in-out infinite alternate;
+}
+
+@keyframes textShine {
+  0% {
+      background-position: 0% 50%;
+  }
+  100% {
+      background-position: 100% 50%;
+  }
+}
